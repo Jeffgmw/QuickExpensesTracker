@@ -1,4 +1,4 @@
-package com.example.expensetracker
+package com.example.quickexpensestracker
 
 import androidx.room.TypeConverter
 import java.util.*

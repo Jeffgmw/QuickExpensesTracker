@@ -2,7 +2,7 @@ package com.example.quickexpensestracker.database
 
 import android.content.Context
 import androidx.room.*
-import com.example.expensetracker.DateTypeConverter
+import com.example.quickexpensestracker.DateTypeConverter
 import com.example.quickexpensestracker.database.Transaction.Transaction
 import com.example.quickexpensestracker.database.Transaction.TransactionDao
 
