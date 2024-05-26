@@ -3,7 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+<<<<<<< HEAD
         android:name="com.example.quickexpensestracker.room.TransactionApplication"
+=======
+        android:name="com.example.quickexpensestracker.TransactionApplication"
+>>>>>>> 1a2242ef8a87d4cea63d1ee776d61ab7f794da5d
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,11 +18,19 @@
         android:theme="@style/Theme.QuickExpenseTracker"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name="com.example.quickexpensestracker.ui.DetailedActivity"
             android:parentActivityName="com.example.quickexpensestracker.MainActivity"
             android:exported="false" />
         <activity
             android:name="com.example.quickexpensestracker.ui.AddTransactionActivity"
+=======
+            android:name="com.example.quickexpensestracker.DetailedActivity"
+            android:parentActivityName="com.example.quickexpensestracker.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.quickexpensestracker.AddTransactionActivity"
+>>>>>>> 1a2242ef8a87d4cea63d1ee776d61ab7f794da5d
             android:parentActivityName="com.example.quickexpensestracker.MainActivity"
             android:exported="false" />
         <activity

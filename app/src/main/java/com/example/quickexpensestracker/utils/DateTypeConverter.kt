@@ -1,4 +1,8 @@
+<<<<<<< HEAD:app/src/main/java/com/example/quickexpensestracker/utils/DateTypeConverter.kt
 package com.example.quickexpensestracker.utils
+=======
+package com.example.quickexpensestracker
+>>>>>>> 1a2242ef8a87d4cea63d1ee776d61ab7f794da5d:app/src/main/java/com/example/quickexpensestracker/DateTypeConverter.kt
 
 import androidx.room.TypeConverter
 import java.util.*

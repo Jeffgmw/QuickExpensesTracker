@@ -5,7 +5,11 @@
     android:id="@+id/addRootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context="com.example.quickexpensestracker.ui.AddTransactionActivity">
+=======
+    tools:context="com.example.quickexpensestracker.AddTransactionActivity">
+>>>>>>> 1a2242ef8a87d4cea63d1ee776d61ab7f794da5d
 
 
     <RadioGroup
