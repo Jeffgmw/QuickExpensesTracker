@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">QuickExpenseTracker</string>
+
+    <string-array name="labelExpense">
+        <item>Entertainment</item>
+        <item>Fuel</item>
+        <item>General</item>
+        <item>Eating Out</item>
+        <item>Clothes</item>
+        <item>Kids</item>
+        <item>Gifts</item>
+        <item>Holidays</item>
+        <item>Shopping</item>
+        <item>Sports</item>
+        <item>Travel</item>
+    </string-array>
+
+    <string-array name="labelIncome">
+        <item>Salary</item>
+        <item>Stocks</item>
+        <item>Gift</item>
+        <item>Selling</item>
+    </string-array>
+
+    <string-array name="sortBy">
+        <item>Ascending</item>
+        <item>Ascending1</item>
+        <item>Ascending11</item>
+        <item>Ascending3</item>
+    </string-array>
+
 </resources>

@@ -4,36 +4,32 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.example.expensetracker.database.Transaction.Transaction
-import kotlinx.android.synthetic.main.activity_add_transaction.*
-import kotlinx.android.synthetic.main.activity_add_transaction.amountInput
-import kotlinx.android.synthetic.main.activity_add_transaction.amountLayout
-import kotlinx.android.synthetic.main.activity_add_transaction.closeBtn
-import kotlinx.android.synthetic.main.activity_add_transaction.descriptionInput
-import kotlinx.android.synthetic.main.activity_add_transaction.labelInput
-import kotlinx.android.synthetic.main.activity_add_transaction.labelLayout
+import com.example.quickexpensestracker.database.Transaction.Transaction
+import com.example.quickexpensetracker.R
+import com.example.quickexpensetracker.databinding.ActivityAddTransactionBinding
 import java.util.*
-
 
 class AddTransactionActivity : AppCompatActivity() {
 
-    private val vm: TransactionViewModel by viewModels{
+    private val vm: TransactionViewModel by viewModels {
         TransactionViewModel.TransactionViewModelFactory(application)
     }
-    lateinit var arrayAdapter: ArrayAdapter<String>
+    private lateinit var arrayAdapter: ArrayAdapter<String>
+    private lateinit var binding: ActivityAddTransactionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_transaction)
+        binding = ActivityAddTransactionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         title = "Add Expense"
 
-        addRootView.setOnClickListener {
+        binding.addRootView.setOnClickListener {
             this.window.decorView.clearFocus()
 
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -43,57 +39,50 @@ class AddTransactionActivity : AppCompatActivity() {
         val labelExpense = resources.getStringArray(R.array.labelExpense)
         val labelIncome = resources.getStringArray(R.array.labelIncome)
         arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, labelExpense)
-        labelInput.setAdapter(arrayAdapter)
+        binding.labelInput.setAdapter(arrayAdapter)
 
-
-
-        expense.setOnClickListener {
-            if (labelInput.text.toString() !in labelExpense.toList()) {
-                labelInput.setText("")
+        binding.expense.setOnClickListener {
+            if (binding.labelInput.text.toString() !in labelExpense.toList()) {
+                binding.labelInput.setText("")
                 arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, labelExpense)
-                labelInput.setAdapter(arrayAdapter)
+                binding.labelInput.setAdapter(arrayAdapter)
             }
         }
 
-        income.setOnClickListener {
-            if (labelInput.text.toString() !in labelIncome.toList()) {
-                labelInput.setText("")
+        binding.income.setOnClickListener {
+            if (binding.labelInput.text.toString() !in labelIncome.toList()) {
+                binding.labelInput.setText("")
                 arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, labelIncome)
-                labelInput.setAdapter(arrayAdapter)
+                binding.labelInput.setAdapter(arrayAdapter)
             }
         }
 
-        labelInput.addTextChangedListener {
+        binding.labelInput.addTextChangedListener {
             if (it!!.isNotEmpty())
-                labelLayout.error = null
+                binding.labelLayout.error = null
         }
 
-        amountInput.addTextChangedListener {
+        binding.amountInput.addTextChangedListener {
             if (it!!.isNotEmpty())
-                amountLayout.error = null
+                binding.amountLayout.error = null
         }
 
-
-        calendarDate.setText(SimpleDateFormat("EEEE, dd MMM yyyy").format(System.currentTimeMillis()))
+        binding.calendarDate.setText(SimpleDateFormat("EEEE, dd MMM yyyy").format(System.currentTimeMillis()))
         var date = Date()
 
+        val cal = Calendar.getInstance()
 
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            val myFormat = "EEEE, dd MMM yyyy"
+            val sdf = SimpleDateFormat(myFormat, Locale.US)
+            binding.calendarDate.setText(sdf.format(cal.time))
+            date = cal.time
+        }
 
-        var cal = Calendar.getInstance()
-
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val myFormat = "EEEE, dd MMM yyyy"
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
-                calendarDate.setText(sdf.format(cal.time))
-                date = cal.time
-
-            }
-
-        calendarDate.setOnClickListener {
+        binding.calendarDate.setOnClickListener {
             DatePickerDialog(
                 this, dateSetListener,
                 cal.get(Calendar.YEAR),
@@ -102,31 +91,25 @@ class AddTransactionActivity : AppCompatActivity() {
             ).show()
         }
 
-
-
-        addTransactionBtn.setOnClickListener {
-            val label = labelInput.text.toString()
-            val description = descriptionInput.text.toString()
-            var amount = amountInput.text.toString().toDoubleOrNull()
-//            val date = calendarDate.text.toString()
-
-
+        binding.addTransactionBtn.setOnClickListener {
+            val label = binding.labelInput.text.toString()
+            val description = binding.descriptionInput.text.toString()
+            var amount = binding.amountInput.text.toString().toDoubleOrNull()
 
             if (label.isEmpty())
-                labelLayout.error = "Please enter a valid label"
+                binding.labelLayout.error = "Please enter a valid label"
             else if (amount == null)
-                amountLayout.error = "Please enter a valid amount"
+                binding.amountLayout.error = "Please enter a valid amount"
             else {
-                if (expense.isChecked) amount = -amount
+                if (binding.expense.isChecked) amount = -amount
                 val transaction = Transaction(0, label, amount, description, date)
                 insert(transaction)
             }
         }
 
-        closeBtn.setOnClickListener {
+        binding.closeBtn.setOnClickListener {
             finish()
         }
-
     }
 
     private fun insert(transaction: Transaction) {
@@ -135,6 +118,4 @@ class AddTransactionActivity : AppCompatActivity() {
         startActivity(intentMain)
         finish()
     }
-
 }
-
