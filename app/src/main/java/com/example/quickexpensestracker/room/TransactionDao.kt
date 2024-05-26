@@ -1,6 +1,7 @@
-package com.example.quickexpensestracker.database.Transaction
+package com.example.quickexpensestracker.room
 
 import androidx.room.*
+import com.example.quickexpensestracker.model.Transaction
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -1,4 +1,4 @@
-package com.example.quickexpensestracker
+package com.example.quickexpensestracker.ui
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -11,7 +11,10 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.example.quickexpensestracker.database.Transaction.Transaction
+import com.example.quickexpensestracker.MainActivity
+import com.example.quickexpensestracker.model.Transaction
+import com.example.quickexpensestracker.viewmodels.TransactionViewModel
+import com.example.quickexpensestracker.viewmodels.TransactionViewModelFactory
 import com.example.quickexpensetracker.R
 import com.example.quickexpensetracker.databinding.ActivityDetailedBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -21,7 +24,7 @@ import kotlin.math.abs
 class DetailedActivity : AppCompatActivity() {
 
     private val vm: TransactionViewModel by viewModels {
-        TransactionViewModel.TransactionViewModelFactory(application)
+        TransactionViewModelFactory(application)
     }
     lateinit var arrayAdapter: ArrayAdapter<String>
     lateinit var date: Date
@@ -56,7 +59,7 @@ class DetailedActivity : AppCompatActivity() {
         var date = transactionDate
         if (amount > 0.0) binding.incomeEdit.isChecked = true
 
-        val dateToDisplay = SimpleDateFormat("EEEE, dd MMM yyyy").format(date)
+        val dateToDisplay = SimpleDateFormat("EEEE, dd MMM yyyy", Locale.US).format(date)
 
         binding.labelInputEdit.setText(label)
         binding.amountInputEdit.setText(amount.let { abs(it).toString() })
@@ -139,7 +142,7 @@ class DetailedActivity : AppCompatActivity() {
                     amount = -amount
                 }
                 val transaction = Transaction(transactionId, label, amount, description, date)
-                vm.updateTransactions(transaction)
+                vm.updateTransaction(transaction)
                 startActivity(Intent(this, MainActivity::class.java))
                 Toast.makeText(this, "Transaction Updated", Toast.LENGTH_SHORT).show()
             }
@@ -152,7 +155,7 @@ class DetailedActivity : AppCompatActivity() {
                 .setCancelable(false)
                 .setNegativeButton("No") { _, _ -> }
                 .setPositiveButton("Yes") { _, _ ->
-                    vm.deleteTransactions(transactionId)
+                    vm.deleteTransaction(transactionId)
                     finish()
                     startActivity(Intent(this, MainActivity::class.java))
                     Toast.makeText(this, "Transaction Deleted", Toast.LENGTH_SHORT).show()

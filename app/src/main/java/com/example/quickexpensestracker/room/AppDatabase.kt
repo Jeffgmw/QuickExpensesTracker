@@ -1,10 +1,9 @@
-package com.example.quickexpensestracker.database
+package com.example.quickexpensestracker.room
 
 import android.content.Context
 import androidx.room.*
-import com.example.expensetracker.DateTypeConverter
-import com.example.quickexpensestracker.database.Transaction.Transaction
-import com.example.quickexpensestracker.database.Transaction.TransactionDao
+import com.example.quickexpensestracker.utils.DateTypeConverter
+import com.example.quickexpensestracker.model.Transaction
 
 
 @Database(entities = [Transaction::class], version = 3, exportSchema = false)

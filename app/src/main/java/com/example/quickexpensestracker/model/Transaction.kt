@@ -1,4 +1,4 @@
-package com.example.quickexpensestracker.database.Transaction
+package com.example.quickexpensestracker.model
 
 import android.icu.text.SimpleDateFormat
 import androidx.room.Entity

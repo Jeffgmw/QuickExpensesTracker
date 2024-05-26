@@ -1,7 +1,6 @@
-package com.example.quickexpensestracker
+package com.example.quickexpensestracker.room
 
 import android.app.Application
-import com.example.quickexpensestracker.database.AppDatabase
 
 class TransactionApplication : Application() {
     val database: AppDatabase by lazy { AppDatabase.getDatabase(this) }

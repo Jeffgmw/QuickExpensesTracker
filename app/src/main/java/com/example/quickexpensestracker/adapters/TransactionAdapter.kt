@@ -1,4 +1,4 @@
-package com.example.quickexpensestracker
+package com.example.quickexpensestracker.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.quickexpensestracker.database.Transaction.Transaction
-import com.example.quickexpensestracker.database.Transaction.getFormattedAmount
-import com.example.quickexpensestracker.database.Transaction.getFormattedDate
+import com.example.quickexpensestracker.model.Transaction
+import com.example.quickexpensestracker.model.getFormattedAmount
+import com.example.quickexpensestracker.model.getFormattedDate
 import com.example.quickexpensetracker.R
 import com.example.quickexpensetracker.databinding.TransactionLayoutBinding
 

@@ -9,8 +9,13 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.quickexpensestracker.adapters.TransactionAdapter
 import com.example.quickexpensestracker.data.SettingsDataStore
-import com.example.quickexpensestracker.database.Transaction.Transaction
+import com.example.quickexpensestracker.model.Transaction
+import com.example.quickexpensestracker.ui.AddTransactionActivity
+import com.example.quickexpensestracker.ui.DetailedActivity
+import com.example.quickexpensestracker.viewmodels.TransactionViewModel
+import com.example.quickexpensestracker.viewmodels.TransactionViewModelFactory
 import com.example.quickexpensetracker.R
 import com.example.quickexpensetracker.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
