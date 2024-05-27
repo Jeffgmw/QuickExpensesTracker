@@ -1,60 +1,80 @@
 package com.example.quickexpensestracker.adapters
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.example.quickexpensestracker.model.Transaction
-import com.example.quickexpensestracker.model.getFormattedAmount
-import com.example.quickexpensestracker.model.getFormattedDate
-import com.example.quickexpensetracker.R
-import com.example.quickexpensetracker.databinding.TransactionLayoutBinding
+import android.view.LayoutInflater // Import LayoutInflater class for inflating layout XML files into corresponding View objects.
+import android.view.ViewGroup // Import ViewGroup class for managing the child views of a ViewGroup container.
+import androidx.core.content.ContextCompat // Import ContextCompat class for accessing color resources.
+import androidx.recyclerview.widget.DiffUtil // Import DiffUtil class for computing the difference between two lists and updating the RecyclerView accordingly.
+import androidx.recyclerview.widget.ListAdapter // Import ListAdapter class for implementing an efficient RecyclerView.Adapter that computes the differences between old and new lists.
+import androidx.recyclerview.widget.RecyclerView // Import RecyclerView class for displaying large sets of data efficiently.
+import com.example.quickexpensestracker.model.Transaction // Import Transaction class to represent transaction data.
+import com.example.quickexpensestracker.model.getFormattedAmount // Import getFormattedAmount extension function for formatting transaction amount.
+import com.example.quickexpensestracker.model.getFormattedDate // Import getFormattedDate extension function for formatting transaction date.
+import com.example.quickexpensetracker.R // Import R class for accessing resources like colors and layouts.
+import com.example.quickexpensetracker.databinding.TransactionLayoutBinding // Import TransactionLayoutBinding class generated from the layout XML file.
 
 class TransactionAdapter(private val onItemClicked: (Transaction) -> Unit) :
-    ListAdapter<Transaction, TransactionAdapter.TransactionHolder>(DiffCallback) {
+    ListAdapter<Transaction, TransactionAdapter.TransactionHolder>(DiffCallback) { // Define TransactionAdapter class that extends ListAdapter with Transaction as item type.
 
-    class TransactionHolder(private val binding: TransactionLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    class TransactionHolder(private val binding: TransactionLayoutBinding) : RecyclerView.ViewHolder(binding.root) { // Define TransactionHolder class as a ViewHolder for holding views of individual items.
 
-        fun bind(transaction: Transaction, onItemClicked: (Transaction) -> Unit) {
-            binding.labelT.text = transaction.label
+        fun bind(transaction: Transaction, onItemClicked: (Transaction) -> Unit) { // Define bind function to bind transaction data to views.
+            binding.labelT.text = transaction.label // Set transaction label text.
 
-            val context = binding.labelT.context
-            if (transaction.amount >= 0) {
-                binding.amountT.setTextColor(ContextCompat.getColor(context, R.color.green))
+            val context = binding.labelT.context // Get the context of the label text view.
+            if (transaction.amount >= 0) { // Check if transaction amount is positive.
+                binding.amountT.setTextColor(ContextCompat.getColor(context, R.color.green)) // Set text color to green for positive amount.
             } else {
-                binding.amountT.setTextColor(ContextCompat.getColor(context, R.color.red))
+                binding.amountT.setTextColor(ContextCompat.getColor(context, R.color.red)) // Set text color to red for negative amount.
             }
 
-            binding.amountT.text = transaction.getFormattedAmount()
-            binding.dateT.text = transaction.getFormattedDate()
+            binding.amountT.text = transaction.getFormattedAmount() // Set formatted transaction amount text.
+            binding.dateT.text = transaction.getFormattedDate() // Set formatted transaction date text.
 
-            itemView.setOnClickListener {
-                onItemClicked(transaction)
+            itemView.setOnClickListener { // Set click listener for the item view.
+                onItemClicked(transaction) // Invoke the onItemClick callback with the clicked transaction.
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionHolder {
-        val binding = TransactionLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TransactionHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionHolder { // Override onCreateViewHolder method to create ViewHolder instances.
+        val binding = TransactionLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false) // Inflate the layout XML file into a binding object.
+        return TransactionHolder(binding) // Return a new TransactionHolder instance with the inflated binding object.
     }
 
-    override fun onBindViewHolder(holder: TransactionHolder, position: Int) {
-        val current = getItem(position)
-        holder.bind(current, onItemClicked)
+    override fun onBindViewHolder(holder: TransactionHolder, position: Int) { // Override onBindViewHolder method to bind data to ViewHolder.
+        val current = getItem(position) // Get the transaction item at the specified position.
+        holder.bind(current, onItemClicked) // Bind the transaction data to the ViewHolder.
     }
 
-    companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<Transaction>() {
-            override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
-                return oldItem.id == newItem.id
+    companion object { // Define a companion object.
+        private val DiffCallback = object : DiffUtil.ItemCallback<Transaction>() { // Define DiffCallback object for calculating differences between old and new items.
+            override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean { // Override areItemsTheSame method to check if items have the same identity.
+                return oldItem.id == newItem.id // Compare the IDs of old and new transactions.
             }
 
-            override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
-                return oldItem == newItem
+            override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction): Boolean { // Override areContentsTheSame method to check if item contents are the same.
+                return oldItem == newItem // Compare the contents of old and new transactions.
             }
         }
     }
 }
+
+/*
+Explanation of source of methods and their functionality:
+
+LayoutInflater: This class is imported from the android.view package and is used to instantiate layout XML files into corresponding View objects.
+
+ViewGroup: This class is imported from the android.view package and is used to manage the child views of a ViewGroup container.
+
+ContextCompat: This class is imported from the androidx.core.content package and provides methods for accessing color resources compatibly across different platform versions.
+
+DiffUtil: This class is imported from the androidx.recyclerview.widget package and is used for computing the difference between two lists and updating the RecyclerView accordingly.
+
+ListAdapter: This class is imported from the androidx.recyclerview.widget package and is used for implementing an efficient RecyclerView.Adapter that computes the differences between old and new lists.
+
+RecyclerView: This class is imported from the androidx.recyclerview.widget package and is used for displaying large sets of data efficiently.
+
+Transaction: This class is imported from the com.example.quickexpensestracker.model package and represents transaction data.
+
+getFormattedAmount(): This extension function is imported from the com.example
+ */

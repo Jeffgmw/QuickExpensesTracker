@@ -1,4 +1,4 @@
-package com.example.quickexpensestracker
+package com.example.quickexpensestracker.ui
 
 import android.content.Intent // Used to start new activities.
 import androidx.appcompat.app.AppCompatActivity // Base class for activities that use the modern Android features.
@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager // LayoutManager for Rec
 import com.example.quickexpensestracker.adapters.TransactionAdapter // Custom adapter for displaying transaction items in a RecyclerView.
 import com.example.quickexpensestracker.data.SettingsDataStore // Class for managing application settings using DataStore.
 import com.example.quickexpensestracker.model.Transaction // Data model class for transactions.
-import com.example.quickexpensestracker.ui.AddTransactionActivity // Activity for adding new transactions.
-import com.example.quickexpensestracker.ui.DetailedActivity // Activity for displaying detailed information about a transaction.
 import com.example.quickexpensestracker.viewmodels.TransactionViewModel // ViewModel class for managing UI-related data in a lifecycle-conscious way.
 import com.example.quickexpensestracker.viewmodels.TransactionViewModelFactory // Factory class for creating instances of TransactionViewModel.
 import com.example.quickexpensetracker.R // Resource class for accessing application resources (e.g., strings, layouts, etc.).
@@ -123,3 +121,32 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener { // Ma
     }
 }
 
+/*
+Explanation of source of methods and their functionality:
+
+1. onCreate(savedInstanceState: Bundle?): This method is called when the activity is first created.
+It is where you should do all of your normal static set up to create views, bind data to lists, etc.
+This method also provides you with a Bundle containing the activity's previously frozen state, if there was one.
+
+2. setupViews(): This is a custom method defined in MainActivity to set up the RecyclerView and its adapter.
+
+3. observeSettings(): This custom method sets up an observer on the SettingsDataStore to monitor changes in user preferences, specifically the sorting order.
+
+4. observeTransactions(): This custom method observes the list of transactions from the TransactionViewModel and updates the dashboard and UI accordingly.
+
+5. setupListeners(): This custom method sets up click listeners for the buttons in the activity, specifically for adding a new transaction and changing the sort order.
+
+6. updateUI(transactions: List<Transaction>): This custom method updates the UI components (RecyclerView, balance, budget, and expense text views) with the provided list of transactions.
+
+7. refreshTransactionList(): This custom method refreshes the transaction list based on the current search query and sort order.
+
+8. onCreateOptionsMenu(menu: Menu): This method is called to initialize the contents of the Activity's standard options menu.
+You should place your menu items in the menu passed into this method.
+
+9. onQueryTextSubmit(query: String?): This method is called when the user submits the query. In this case, it simply returns true.
+
+10. onQueryTextChange(query: String?): This method is called when the query text is changed by the user.
+ It triggers a new search in the database with the updated query.
+
+11. searchDatabase(query: String): This custom method formats the query for SQL LIKE search and observes the search results from the TransactionViewModel, updating the UI with the search results.
+*/
