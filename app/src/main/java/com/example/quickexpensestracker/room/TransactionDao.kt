@@ -11,7 +11,6 @@ interface TransactionDao {
             "CASE WHEN :isAsc = 0 THEN date END DESC")
     fun getAll(isAsc:Boolean): Flow<List<Transaction>>
 
-
     @Query("SELECT * from transactions WHERE label LIKE :searchQuery ORDER BY" +
             " CASE WHEN :isAsc = 1 THEN date END ASC," +
             "CASE WHEN :isAsc = 0 THEN date END DESC")

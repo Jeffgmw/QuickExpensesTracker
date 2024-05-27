@@ -19,9 +19,6 @@ data class Transaction(
 fun Transaction.getFormattedDate(): String =
     SimpleDateFormat("EEEE, dd MMM yyyy").format(date)
 
-
 fun Transaction.getFormattedAmount(): String =
     NumberFormat.getCurrencyInstance().format(amount)
-
-
 

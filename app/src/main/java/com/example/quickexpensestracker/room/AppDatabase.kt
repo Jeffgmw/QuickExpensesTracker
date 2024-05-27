@@ -11,7 +11,6 @@ import com.example.quickexpensestracker.model.Transaction
 abstract class AppDatabase : RoomDatabase() {
     abstract fun transactionDao() : TransactionDao
 
-
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
@@ -26,7 +25,6 @@ abstract class AppDatabase : RoomDatabase() {
                     "transactions_database"
                 )
                     // Wipes and rebuilds instead of migrating if no Migration object.
-                    // Migration is not part of this codelab.
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

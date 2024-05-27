@@ -46,6 +46,4 @@ val preferenceFlow: Flow<Boolean> = context.dataStore.data
         // On the first run of the app, we will use LinearLayoutManager by default
         preferences[IS_ASC] ?: false
     }
-
-
 }
