@@ -5,11 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/detailRootView"
-<<<<<<< HEAD
     tools:context="com.example.quickexpensestracker.ui.DetailedActivity">
-=======
-    tools:context="com.example.quickexpensestracker.DetailedActivity">
->>>>>>> 1a2242ef8a87d4cea63d1ee776d61ab7f794da5d
 
 
     <RadioGroup
