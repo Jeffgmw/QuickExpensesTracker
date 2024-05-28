@@ -31,18 +31,3 @@ interface TransactionDao { // Interface defining database operations for transac
 
 }
 
-/*
-Explanation of source of methods and their functionality:
-
-1. getAll(isAsc: Boolean): This method is annotated with @Query and defines a SQL query to get all transactions from the database. It orders the transactions by date in ascending or descending order based on the value of the isAsc parameter. It returns a Flow, which allows reactive data handling and automatic updates when the data changes.
-
-2. searchDatabase(searchQuery: String, isAsc: Boolean): This method is annotated with @Query and defines a SQL query to search transactions by their label. It orders the transactions by date in ascending or descending order based on the value of the isAsc parameter. It returns a Flow, which allows reactive data handling and automatic updates when the data changes.
-
-3. getById(transactionId: Int): This method is annotated with @Query and defines a SQL query to get a transaction by its ID. It returns a Flow, which allows reactive data handling and automatic updates when the data changes.
-
-4. insertAll(transaction: Transaction): This method is annotated with @Insert and is used to insert a transaction into the database. The onConflict parameter is set to OnConflictStrategy.IGNORE, which means that if there is a conflict (e.g., a transaction with the same ID already exists), the insert will be ignored. This is a suspended function, meaning it is designed to be called from a coroutine or another suspend function.
-
-5. delete(transactionId: Int): This method is annotated with @Query and defines a SQL query to delete a transaction by its ID. This is a suspended function, meaning it is designed to be called from a coroutine or another suspend function.
-
-6. update(transaction: Transaction): This method is annotated with @Update and is used to update an existing transaction in the database. This is a suspended function, meaning it is designed to be called from a coroutine or another suspend function.
-*/

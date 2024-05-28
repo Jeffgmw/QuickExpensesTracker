@@ -18,11 +18,5 @@ class TransactionViewModelFactory(private val application: Application) : ViewMo
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 
-    // Deprecated method to create ViewModel instances without CreationExtras.
-    // Uncomment the method below to use this deprecated approach.
-//    @Suppress("DEPRECATION")
-//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-//        return create(modelClass, CreationExtras.Empty)
-//    }
 
 }

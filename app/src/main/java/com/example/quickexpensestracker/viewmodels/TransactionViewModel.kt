@@ -60,32 +60,4 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         return NumberFormat.getCurrencyInstance().format(amount)
     }
 
-    // Factory for creating instances of TransactionViewModel.
-    class Factory(private val application: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(TransactionViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return TransactionViewModel(application) as T
-            }
-            throw IllegalArgumentException("Unknown ViewModel class")
-        }
-    }
 }
-
-/*
-Explanation of source of methods and their functionality:
-
-Application: This class is imported from the android.app package and represents the base class for maintaining global application state.
-
-AndroidViewModel: This class is imported from the androidx.lifecycle package and is a subclass of ViewModel that provides the application context.
-
-ViewModelScope: This class is imported from the androidx.lifecycle package and provides a scope for coroutines tied to the ViewModel lifecycle.
-
-TransactionRepository: This class is imported from the repository package and acts as a mediator between different data sources (local and remote) and the ViewModel.
-
-AppDatabase: This class is imported from the room package and represents the Room database.
-
-Transaction: This class is imported from the model package and represents a transaction entity in the application.
-
-NumberFormat: This class is imported from the java.text package and provides methods to format numbers as currency.
- */

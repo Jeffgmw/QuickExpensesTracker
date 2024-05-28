@@ -47,29 +47,4 @@ class SettingsDataStore(context: Context) { // Define SettingsDataStore class re
         }
 }
 
-/*
-Explanation of source of methods and their functionality:
 
-1. Context: This class is imported from the android.content package and is used to provide access to application-specific resources and operations.
-
-2. DataStore: This class is imported from the androidx.datastore.core package and represents a store for managing data, particularly for saving and accessing preferences data.
-
-3. Preferences: This class is imported from the androidx.datastore.preferences.core package and represents preferences data that can be stored and retrieved from the DataStore.
-
-4. booleanPreferencesKey: This function is imported from the androidx.datastore.preferences.core package and is used to define a boolean preferences key.
-
-5. edit: This extension function is imported from the androidx.datastore.preferences.core package and is used to start editing preferences within a DataStore.
-
-6. emptyPreferences: This function is imported from the androidx.datastore.preferences.core package and is used to create an empty preferences instance.
-
-7. preferencesDataStore: This delegate property is imported from the androidx.datastore.preferences.preferencesDataStore package and is used to create a DataStore instance for preferences storage.
-
-8. Flow: This interface is imported from the kotlinx.coroutines.flow package and represents a flow of values that can be asynchronously emitted over time.
-
-9. catch: This operator is imported from the kotlinx.coroutines.flow package and is used to handle exceptions that occur during flow processing.
-
-10. map: This operator is imported from the kotlinx.coroutines.flow package and is used to transform values emitted by a flow into other values.
-
-11. IOException: This class is imported from the java.io package and represents an exception that indicates an error during I/O operations.
-
- */

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView // Import RecyclerView class fo
 import com.example.quickexpensestracker.model.Transaction // Import Transaction class to represent transaction data.
 import com.example.quickexpensestracker.model.getFormattedAmount // Import getFormattedAmount extension function for formatting transaction amount.
 import com.example.quickexpensestracker.model.getFormattedDate // Import getFormattedDate extension function for formatting transaction date.
-import com.example.quickexpensetracker.R // Import R class for accessing resources like colors and layouts.
+import com.example.quickexpensetracker.R
 import com.example.quickexpensetracker.databinding.TransactionLayoutBinding // Import TransactionLayoutBinding class generated from the layout XML file.
 
 class TransactionAdapter(private val onItemClicked: (Transaction) -> Unit) :
@@ -59,22 +59,3 @@ class TransactionAdapter(private val onItemClicked: (Transaction) -> Unit) :
     }
 }
 
-/*
-Explanation of source of methods and their functionality:
-
-LayoutInflater: This class is imported from the android.view package and is used to instantiate layout XML files into corresponding View objects.
-
-ViewGroup: This class is imported from the android.view package and is used to manage the child views of a ViewGroup container.
-
-ContextCompat: This class is imported from the androidx.core.content package and provides methods for accessing color resources compatibly across different platform versions.
-
-DiffUtil: This class is imported from the androidx.recyclerview.widget package and is used for computing the difference between two lists and updating the RecyclerView accordingly.
-
-ListAdapter: This class is imported from the androidx.recyclerview.widget package and is used for implementing an efficient RecyclerView.Adapter that computes the differences between old and new lists.
-
-RecyclerView: This class is imported from the androidx.recyclerview.widget package and is used for displaying large sets of data efficiently.
-
-Transaction: This class is imported from the com.example.quickexpensestracker.model package and represents transaction data.
-
-getFormattedAmount(): This extension function is imported from the com.example
- */

@@ -17,153 +17,131 @@ import com.example.quickexpensetracker.databinding.ActivityAddTransactionBinding
 import java.text.SimpleDateFormat // Class for formatting and parsing dates in a locale-sensitive manner.
 import java.util.* // Package for date and time classes.
 
-class AddTransactionActivity : AppCompatActivity() { // AddTransactionActivity class which is a subclass of AppCompatActivity.
+class AddTransactionActivity : AppCompatActivity() {
 
-    private val vm: TransactionViewModel by viewModels { // Lazy initialization of TransactionViewModel using a factory.
+    private val vm: TransactionViewModel by viewModels {
         TransactionViewModelFactory(application)
     }
-    private lateinit var arrayAdapter: ArrayAdapter<String> // Adapter for handling label input.
-    private lateinit var binding: ActivityAddTransactionBinding // Binding object for activity_add_transaction layout.
 
-    override fun onCreate(savedInstanceState: Bundle?) { // Called when the activity is starting.
+    private lateinit var arrayAdapter: ArrayAdapter<String>
+    private lateinit var binding: ActivityAddTransactionBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddTransactionBinding.inflate(layoutInflater) // Inflate the layout for this activity using view binding.
-        setContentView(binding.root) // Set the activity content to the root view of the binding.
-        title = "Add Expense" // Set the title of the activity.
+        binding = ActivityAddTransactionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        title = "Add Expense"
 
-        setupUI() // Call method to set up the user interface.
+        setupUI()
     }
 
-    private fun setupUI() { // Method to set up the user interface.
-        setupRootView() // Call method to set up the root view.
-        setupDropdown() // Call method to set up the dropdown.
-        setupDatePicker() // Call method to set up the date picker.
-        setupButtons() // Call method to set up the buttons.
+
+    private fun setupUI() {
+        setupRootView()
+        setupDropdown()
+        setupDatePicker()
+        setupButtons()
     }
 
-    private fun setupRootView() { // Method to set up the root view.
-        binding.addRootView.setOnClickListener { // Set a click listener to hide the keyboard when the root view is clicked.
-            hideKeyboard(it)
+
+    private fun setupRootView() {
+        binding.addRootView.setOnClickListener { hideKeyboard(it) }
+    }
+
+
+    private fun hideKeyboard(view: android.view.View) {
+        this.window.decorView.clearFocus()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+
+    private fun setupDropdown() {
+        val labelExpense = resources.getStringArray(R.array.labelExpense)
+        val labelIncome = resources.getStringArray(R.array.labelIncome)
+        arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, labelExpense)
+        binding.labelInput.setAdapter(arrayAdapter)
+
+        binding.expense.setOnClickListener { updateDropdown(labelExpense) }
+        binding.income.setOnClickListener { updateDropdown(labelIncome) }
+
+        binding.labelInput.addTextChangedListener {
+            if (it!!.isNotEmpty()) binding.labelLayout.error = null
+        }
+
+        binding.amountInput.addTextChangedListener {
+            if (it!!.isNotEmpty()) binding.amountLayout.error = null
         }
     }
 
-    private fun hideKeyboard(view: android.view.View) { // Method to hide the keyboard.
-        this.window.decorView.clearFocus() // Clear focus from the current view.
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager // Get the InputMethodManager service.
-        imm.hideSoftInputFromWindow(view.windowToken, 0) // Hide the keyboard.
-    }
 
-    private fun setupDropdown() { // Method to set up the dropdown for selecting labels.
-        val labelExpense = resources.getStringArray(R.array.labelExpense) // Get the expense labels from resources.
-        val labelIncome = resources.getStringArray(R.array.labelIncome) // Get the income labels from resources.
-        arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, labelExpense) // Create an ArrayAdapter with the expense labels.
-        binding.labelInput.setAdapter(arrayAdapter) // Set the adapter for the label input field.
-
-        binding.expense.setOnClickListener { // Set a click listener for the expense radio button.
-            updateDropdown(labelExpense)
-        }
-
-        binding.income.setOnClickListener { // Set a click listener for the income radio button.
-            updateDropdown(labelIncome)
-        }
-
-        binding.labelInput.addTextChangedListener { // Add a text changed listener to the label input field.
-            if (it!!.isNotEmpty())
-                binding.labelLayout.error = null // Clear error message when text is not empty.
-        }
-
-        binding.amountInput.addTextChangedListener { // Add a text changed listener to the amount input field.
-            if (it!!.isNotEmpty())
-                binding.amountLayout.error = null // Clear error message when text is not empty.
-        }
-    }
-
-    private fun updateDropdown(labels: Array<String>) { // Method to update the dropdown based on the selected transaction type.
-        if (binding.labelInput.text.toString() !in labels.toList()) { // Clear the label input field if the current label is not in the list.
+    private fun updateDropdown(labels: Array<String>) {
+        if (binding.labelInput.text.toString() !in labels.toList()) {
             binding.labelInput.setText("")
-            arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, labels) // Create a new ArrayAdapter with the selected labels.
-            binding.labelInput.setAdapter(arrayAdapter) // Set the adapter for the label input field.
+            arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, labels)
+            binding.labelInput.setAdapter(arrayAdapter)
         }
     }
 
-    private fun setupDatePicker() { // Method to set up the date picker.
-        binding.calendarDate.setText(SimpleDateFormat("EEEE, dd MMM yyyy", Locale.US).format(System.currentTimeMillis())) // Set the initial date to the current date.
-        var date = Date() // Initialize a date variable.
 
-        val cal = Calendar.getInstance() // Get a Calendar instance.
-        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth -> // Date picker dialog listener to update the date field.
+    private fun setupDatePicker() {
+        val initialDate = Date()
+        binding.calendarDate.setText(formatDate(initialDate))
+
+        val cal = Calendar.getInstance()
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            val sdf = SimpleDateFormat("EEEE, dd MMM yyyy", Locale.US) // Date format.
-            binding.calendarDate.setText(sdf.format(cal.time)) // Update the date input field.
-            date = cal.time // Update the date variable.
+            binding.calendarDate.setText(formatDate(cal.time))
         }
 
-        binding.calendarDate.setOnClickListener { // Set a click listener to show the date picker dialog.
-            DatePickerDialog(
-                this, dateSetListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
+        binding.calendarDate.setOnClickListener {
+            DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         }
     }
 
-    private fun setupButtons() { // Method to set up the buttons.
-        binding.addTransactionBtn.setOnClickListener { // Set a click listener for the add transaction button.
-            validateAndAddTransaction() // Call method to validate and add the transaction.
-        }
 
-        binding.closeBtn.setOnClickListener { // Set a click listener for the close button.
-            finish() // Close the current activity.
+    private fun formatDate(date: Date): String {
+        val sdf = SimpleDateFormat("EEEE, dd MMM yyyy", Locale.US)
+        return sdf.format(date)
+    }
+
+
+    private fun setupButtons() {
+        binding.addTransactionBtn.setOnClickListener { validateAndAddTransaction() }
+        binding.closeBtn.setOnClickListener { finish() }
+    }
+
+
+    private fun validateAndAddTransaction() {
+        val label = binding.labelInput.text.toString()
+        val description = binding.descriptionInput.text.toString()
+        val amount = binding.amountInput.text.toString().toDoubleOrNull()
+        val date = Date()
+
+        when {
+            label.isEmpty() -> binding.labelLayout.error = "Please enter a valid label"
+            amount == null -> binding.amountLayout.error = "Please enter a valid amount"
+            else -> {
+                val finalAmount = if (binding.expense.isChecked) -amount else amount
+                val transaction = Transaction(0, label, finalAmount, description, date)
+                insertTransaction(transaction)
+            }
         }
     }
 
-    private fun validateAndAddTransaction() { // Method to validate the input fields and add the transaction.
-        val label = binding.labelInput.text.toString() // Get the label from the input field.
-        val description = binding.descriptionInput.text.toString() // Get the description from the input field.
-        var amount = binding.amountInput.text.toString().toDoubleOrNull() // Get the amount from the input field.
 
-        if (label.isEmpty()) { // Check if the label is empty.
-            binding.labelLayout.error = "Please enter a valid label" // Show error message.
-        } else if (amount == null) { // Check if the amount is null or invalid.
-            binding.amountLayout.error = "Please enter a valid amount" // Show error message.
-        } else { // If inputs are valid.
-            if (binding.expense.isChecked) amount = -amount // Negate the amount if it is an expense.
-            val transaction = Transaction(0, label, amount, description, Date()) // Create a new Transaction object.
-            insert(transaction) // Call method to insert the transaction.
-        }
+    private fun insertTransaction(transaction: Transaction) {
+        vm.insertTransaction(transaction)
+        navigateToMainActivity()
     }
 
-    private fun insert(transaction: Transaction) { // Method to insert the transaction.
-        vm.insertTransaction(transaction) // Insert the transaction into the ViewModel.
-        val intentMain = Intent(this, MainActivity::class.java) // Create an intent to start MainActivity.
-        startActivity(intentMain) // Start the MainActivity.
-        finish() // Close the current activity.
+
+    private fun navigateToMainActivity() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }
 
-/*
-Explanation of source of methods and their functionality:
 
-1. onCreate(savedInstanceState: Bundle?): This method is called when the activity is first created. It is where you should do all of your normal static set up to create views, bind data to lists, etc. This method also provides you with a Bundle containing the activity's previously frozen state, if there was one.
-
-2. setupUI(): This custom method sets up the user interface by calling other setup methods for different parts of the UI.
-
-3. setupRootView(): This custom method sets up the root view of the activity. It sets a click listener to hide the keyboard when the root view is clicked.
-
-4. hideKeyboard(view: android.view.View): This custom method hides the keyboard by clearing the focus from the current view and hiding the soft input from the window.
-
-5. setupDropdown(): This custom method sets up the dropdown menu for selecting transaction labels. It sets the initial labels and adds click listeners to switch between expense and income labels.
-
-6. updateDropdown(labels: Array<String>): This custom method updates the dropdown menu based on the selected transaction type. It clears the label input field if the current label is not in the list and sets a new adapter with the selected labels.
-
-7. setupDatePicker(): This custom method sets up the date picker dialog. It initializes the date input field with the current date and adds a click listener to show the date picker dialog when the date input field is clicked.
-
-8. setupButtons(): This custom method sets up the buttons in the activity. It adds click listeners for the add transaction button and the close button.
-
-9. validateAndAddTransaction(): This custom method validates the input fields for the transaction. It checks if the label and amount fields are not empty and creates a new transaction if the inputs are valid. It then calls the insert method to insert the transaction.
-
-10. insert(transaction: Transaction): This custom method inserts the transaction into the ViewModel. It then starts the MainActivity and finishes the current activity.
-*/
