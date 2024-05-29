@@ -43,6 +43,24 @@ class DetailedActivity : AppCompatActivity() {
     }
 
 
+    private fun setupListeners() {
+        with(binding) {
+            expenseEdit.setOnClickListener { updateLabelAdapter(R.array.labelExpense) }
+            incomeEdit.setOnClickListener { updateLabelAdapter(R.array.labelIncome) }
+
+            detailRootView.setOnClickListener { hideKeyboard() }
+            calendarDateEdit.setOnClickListener { showDatePicker() }
+
+            labelInputEdit.addTextChangedListener { clearError(binding.labelLayoutEdit) }
+            amountInputEdit.addTextChangedListener { clearError(binding.amountLayoutEdit) }
+
+            updateBtnEdit.setOnClickListener { handleUpdate() }
+            deleteBtnEdit.setOnClickListener { confirmDelete() }
+            closeBtnEdit.setOnClickListener { finish() }
+        }
+    }
+
+
     private fun observeTransaction(transactionId: Int) {
         vm.getTransactionById(transactionId).observe(this) { transaction ->
             transaction?.let {
@@ -76,24 +94,6 @@ class DetailedActivity : AppCompatActivity() {
         }
         arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, labels)
         binding.labelInputEdit.setAdapter(arrayAdapter)
-    }
-
-
-    private fun setupListeners() {
-        with(binding) {
-            expenseEdit.setOnClickListener { updateLabelAdapter(R.array.labelExpense) }
-            incomeEdit.setOnClickListener { updateLabelAdapter(R.array.labelIncome) }
-
-            detailRootView.setOnClickListener { hideKeyboard() }
-            calendarDateEdit.setOnClickListener { showDatePicker() }
-
-            labelInputEdit.addTextChangedListener { clearError(binding.labelLayoutEdit) }
-            amountInputEdit.addTextChangedListener { clearError(binding.amountLayoutEdit) }
-
-            updateBtnEdit.setOnClickListener { handleUpdate() }
-            deleteBtnEdit.setOnClickListener { confirmDelete() }
-            closeBtnEdit.setOnClickListener { finish() }
-        }
     }
 
 

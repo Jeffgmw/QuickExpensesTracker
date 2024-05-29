@@ -36,110 +36,101 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupViews()
-        observeSettings()
-        observeTransactions()
-        setupListeners()
+        setupViews() // Initialize views and RecyclerView
+        observeSettings() // Observe settings data for sorting order
+        observeTransactions() // Observe transaction data
+        setupListeners() // Set up click listeners for buttons
     }
 
     private fun setupViews() {
-        binding.recyclerview.layoutManager = LinearLayoutManager(this)
+        binding.recyclerview.layoutManager = LinearLayoutManager(this) // Set LinearLayoutManager to RecyclerView
         transactionAdapter = TransactionAdapter { transaction ->
-            startDetailedActivity(transaction.id)
+            startDetailedActivity(transaction.id) // Start detailed activity on item click
         }
-        binding.recyclerview.adapter = transactionAdapter
+        binding.recyclerview.adapter = transactionAdapter // Set adapter to RecyclerView
     }
-
 
     private fun observeSettings() {
-        settingsDataStore = SettingsDataStore(this)
+        settingsDataStore = SettingsDataStore(this) // Initialize SettingsDataStore
         settingsDataStore.preferenceFlow.asLiveData().observe(this) { isAsc ->
-            this.isAsc = isAsc
-            refreshTransactionList()
+            this.isAsc = isAsc // Update sort order
+            refreshTransactionList() // Refresh transaction list based on new sort order
         }
     }
-
 
     private fun observeTransactions() {
         vm.getAllTransactions(isAsc).observe(this) { transactions ->
-            vm.updateDashboard(transactions)
-            updateUI(transactions)
+            vm.updateDashboard(transactions) // Update dashboard data
+            updateUI(transactions) // Update UI with new transaction data
         }
     }
-
 
     private fun setupListeners() {
         binding.addBtn.setOnClickListener {
-            startAddTransactionActivity()
+            startAddTransactionActivity() // Start activity to add a new transaction
         }
 
         binding.sortButton.setOnClickListener {
-            toggleSortOrder()
+            toggleSortOrder() // Toggle sort order
         }
     }
+
+
 
 
     private fun startDetailedActivity(transactionId: Int) {
         val intent = Intent(this, DetailedActivity::class.java).apply {
-            putExtra("transactionId", transactionId)
+            putExtra("transactionId", transactionId) // Pass transaction ID to detailed activity
         }
-        startActivity(intent)
+        startActivity(intent) // Start detailed activity
     }
-
 
     private fun startAddTransactionActivity() {
-        startActivity(Intent(this, AddTransactionActivity::class.java))
+        startActivity(Intent(this, AddTransactionActivity::class.java)) // Start add transaction activity
     }
-
 
     private fun toggleSortOrder() {
         lifecycleScope.launch {
-            settingsDataStore.saveLayoutToPreferencesStore(!isAsc, this@MainActivity)
+            settingsDataStore.saveLayoutToPreferencesStore(!isAsc, this@MainActivity) // Save new sort order to preferences
         }
     }
 
-
     private fun updateUI(transactions: List<Transaction>) {
-        transactionAdapter.submitList(transactions)
-        binding.balance.text = vm.formattedAmount(vm.totalAmount)
-        binding.budget.text = vm.formattedAmount(vm.budgetAmount)
-        binding.expense.text = vm.formattedAmount(vm.expenseAmount)
+        transactionAdapter.submitList(transactions) // Update adapter with new transaction list
+        binding.balance.text = vm.formattedAmount(vm.totalAmount) // Update balance text
+        binding.budget.text = vm.formattedAmount(vm.budgetAmount) // Update budget text
+        binding.expense.text = vm.formattedAmount(vm.expenseAmount) // Update expense text
     }
-
 
     private fun refreshTransactionList() {
-        val query = searchView?.query?.toString() ?: ""
-        searchDatabase(query)
+        val query = searchView?.query?.toString() ?: "" // Get current query text
+        searchDatabase(query) // Search database with query
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_item, menu)
+        menuInflater.inflate(R.menu.menu_item, menu) // Inflate menu with search item
         val search = menu.findItem(R.id.menu_search)
         searchView = search?.actionView as? SearchView
         searchView?.apply {
-            isSubmitButtonEnabled = true
-            setOnQueryTextListener(this@MainActivity)
+            isSubmitButtonEnabled = true // Enable submit button in search view
+            setOnQueryTextListener(this@MainActivity) // Set query text listener
         }
         return true
     }
 
-
     override fun onQueryTextSubmit(query: String?): Boolean {
-        return true
+        return true // Handle query text submit (no action needed)
     }
 
-
     override fun onQueryTextChange(query: String?): Boolean {
-        query?.let { searchDatabase(it) }
+        query?.let { searchDatabase(it) } // Search database as query text changes
         return true
     }
 
     private fun searchDatabase(query: String) {
-        val searchQuery = "%$query%"
+        val searchQuery = "%$query%" // Prepare search query
         vm.searchDatabase(searchQuery, isAsc).observe(this) { transactions ->
-            updateUI(transactions)
+            updateUI(transactions) // Update UI with search results
         }
     }
 }
-
