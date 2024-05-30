@@ -1,6 +1,6 @@
 package com.example.quickexpensestracker.ui
 
-import android.app.DatePickerDialog // Dialog for selecting a date.
+import android.app.DatePickerDialog
 import android.content.Context // Provides access to application-specific resources and classes.
 import android.content.Intent // Used to start new activities.
 import android.os.Bundle // Used to pass data between activities.

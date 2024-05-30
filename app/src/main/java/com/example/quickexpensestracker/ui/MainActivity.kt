@@ -77,7 +77,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
 
 
-
     private fun startDetailedActivity(transactionId: Int) {
         val intent = Intent(this, DetailedActivity::class.java).apply {
             putExtra("transactionId", transactionId) // Pass transaction ID to detailed activity
