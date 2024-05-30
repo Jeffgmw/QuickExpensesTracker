@@ -6,7 +6,9 @@ import com.example.quickexpensestracker.utils.DateTypeConverter // Import the cu
 import com.example.quickexpensestracker.model.Transaction // Import the Transaction model class.
 
 // Define the database with entities, version, and type converters.
-@Database(entities = [Transaction::class], version = 3, exportSchema = false)
+@Database(entities = [Transaction::class],
+    version = 1,
+    exportSchema = false)
 @TypeConverters(DateTypeConverter::class) // Use the custom type converter for date fields.
 abstract class AppDatabase : RoomDatabase() { // Abstract class that extends RoomDatabase.
     abstract fun transactionDao() : TransactionDao // Abstract method to get the DAO.

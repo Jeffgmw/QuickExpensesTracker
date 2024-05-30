@@ -5,6 +5,7 @@ import android.content.Context // Provides access to application-specific resour
 import android.content.Intent // Used to start new activities.
 import android.icu.text.SimpleDateFormat // Class for formatting and parsing dates in a locale-sensitive manner.
 import android.os.Bundle // Used to pass data between activities.
+import android.view.View
 import android.view.inputmethod.InputMethodManager // Provides methods to control the input method.
 import android.widget.ArrayAdapter // Provides access to array data in the context of an AdapterView.
 import android.widget.Toast // Class for displaying transient messages to the user.
@@ -17,6 +18,7 @@ import com.example.quickexpensestracker.viewmodels.TransactionViewModelFactory /
 import com.example.quickexpensetracker.R // Resource class for accessing application resources (e.g., strings, layouts, etc.).
 import com.example.quickexpensetracker.databinding.ActivityDetailedBinding // Binding class for activity_detailed layout, allows direct access to UI components.
 import com.google.android.material.dialog.MaterialAlertDialogBuilder // Class for building Material Design alert dialogs.
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import java.util.* // Package for date and time classes.
 import kotlin.math.abs // Kotlin standard library function for getting the absolute value.
@@ -146,6 +148,7 @@ class DetailedActivity : AppCompatActivity() {
                 val finalAmount = if (binding.expenseEdit.isChecked) -amount else amount
                 val transaction = Transaction(intent.getIntExtra("transactionId", -1), label, finalAmount, description, date)
                 vm.updateTransaction(transaction)
+                showSnackbar("Transaction Updated")
                 navigateToMainActivity("Transaction Updated")
             }
         }
@@ -159,17 +162,28 @@ class DetailedActivity : AppCompatActivity() {
             .setCancelable(false)
             .setNegativeButton("No", null)
             .setPositiveButton("Yes") { _, _ ->
-                vm.deleteTransaction(intent.getIntExtra("transactionId", -1))
-                navigateToMainActivity("Transaction Deleted")
+                val transactionId = intent.getIntExtra("transactionId", -1)
+                if (transactionId != -1) {
+                    vm.deleteTransaction(transactionId)
+                    showSnackbar("Transaction Deleted")
+                }
+                navigateToMainActivity("Transaction Deleted") //Showing toast msg
             }
             .show()
     }
+
 
 
     private fun navigateToMainActivity(message: String) {
         startActivity(Intent(this, MainActivity::class.java))
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
+    private fun showSnackbar(message: String) {
+        val rootView = findViewById<View>(android.R.id.content)
+        Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show()
+    }
+
 }
 
 

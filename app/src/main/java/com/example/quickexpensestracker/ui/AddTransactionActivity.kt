@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context // Provides access to application-specific resources and classes.
 import android.content.Intent // Used to start new activities.
 import android.os.Bundle // Used to pass data between activities.
+import android.view.View
 import android.view.inputmethod.InputMethodManager // Provides methods to control the input method.
 import android.widget.ArrayAdapter // Provides access to array data in the context of an AdapterView.
 import androidx.activity.viewModels // Kotlin extension to get ViewModel instance.
@@ -14,6 +15,7 @@ import com.example.quickexpensestracker.viewmodels.TransactionViewModel // ViewM
 import com.example.quickexpensestracker.viewmodels.TransactionViewModelFactory // Factory class for creating instances of TransactionViewModel.
 import com.example.quickexpensetracker.R // Resource class for accessing application resources (e.g., strings, layouts, etc.).
 import com.example.quickexpensetracker.databinding.ActivityAddTransactionBinding // Binding class for activity_add_transaction layout, allows direct access to UI components.
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat // Class for formatting and parsing dates in a locale-sensitive manner.
 import java.util.* // Package for date and time classes.
 
@@ -134,13 +136,21 @@ class AddTransactionActivity : AppCompatActivity() {
 
     private fun insertTransaction(transaction: Transaction) {
         vm.insertTransaction(transaction)
-        navigateToMainActivity()
+        showSnackbar("Transaction Created")
+        binding.root.postDelayed({
+            navigateToMainActivity()
+        }, 2000) //
     }
 
 
     private fun navigateToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
+    }
+
+    private fun showSnackbar(message: String) {
+        val rootView = findViewById<View>(android.R.id.content)
+        Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show()
     }
 }
 
