@@ -1,16 +1,16 @@
 package com.example.quickexpensestracker.adapters
 
-import android.view.LayoutInflater // Import LayoutInflater class for inflating layout XML files into corresponding View objects.
-import android.view.ViewGroup // Import ViewGroup class for managing the child views of a ViewGroup container.
-import androidx.core.content.ContextCompat // Import ContextCompat class for accessing color resources.
-import androidx.recyclerview.widget.DiffUtil // Import DiffUtil class for computing the difference between two lists and updating the RecyclerView accordingly.
-import androidx.recyclerview.widget.ListAdapter // Import ListAdapter class for implementing an efficient RecyclerView.Adapter that computes the differences between old and new lists.
-import androidx.recyclerview.widget.RecyclerView // Import RecyclerView class for displaying large sets of data efficiently.
-import com.example.quickexpensestracker.model.Transaction // Import Transaction class to represent transaction data.
-import com.example.quickexpensestracker.model.getFormattedAmount // Import getFormattedAmount extension function for formatting transaction amount.
-import com.example.quickexpensestracker.model.getFormattedDate // Import getFormattedDate extension function for formatting transaction date.
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.example.quickexpensestracker.model.Transaction
+import com.example.quickexpensestracker.model.getFormattedAmount
+import com.example.quickexpensestracker.model.getFormattedDate
 import com.example.quickexpensetracker.R
-import com.example.quickexpensetracker.databinding.TransactionLayoutBinding // Import TransactionLayoutBinding class generated from the layout XML file.
+import com.example.quickexpensetracker.databinding.TransactionLayoutBinding
 
 class TransactionAdapter(private val onItemClicked: (Transaction) -> Unit) :
     ListAdapter<Transaction, TransactionAdapter.TransactionHolder>(DiffCallback) { // Define TransactionAdapter class that extends ListAdapter with Transaction as item type.

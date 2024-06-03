@@ -2,7 +2,7 @@ package com.example.quickexpensestracker.room
 
 import androidx.room.*
 import com.example.quickexpensestracker.model.Transaction
-import kotlinx.coroutines.flow.Flow // Import Flow for reactive data handling.
+import kotlinx.coroutines.flow.Flow
 
 @Dao // Annotation to mark this interface as a Data Access Object for Room.
 interface TransactionDao { // Interface defining database operations for transactions.

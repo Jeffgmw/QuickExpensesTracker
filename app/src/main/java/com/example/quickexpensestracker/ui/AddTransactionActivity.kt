@@ -1,23 +1,23 @@
 package com.example.quickexpensestracker.ui
 
 import android.app.DatePickerDialog
-import android.content.Context // Provides access to application-specific resources and classes.
-import android.content.Intent // Used to start new activities.
-import android.os.Bundle // Used to pass data between activities.
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager // Provides methods to control the input method.
-import android.widget.ArrayAdapter // Provides access to array data in the context of an AdapterView.
-import androidx.activity.viewModels // Kotlin extension to get ViewModel instance.
-import androidx.appcompat.app.AppCompatActivity // Base class for activities that use the modern Android features.
-import androidx.core.widget.addTextChangedListener // Extension function to add a text change listener to an EditText.
-import com.example.quickexpensestracker.model.Transaction // Data model class for transactions.
-import com.example.quickexpensestracker.viewmodels.TransactionViewModel // ViewModel class for managing UI-related data in a lifecycle-conscious way.
-import com.example.quickexpensestracker.viewmodels.TransactionViewModelFactory // Factory class for creating instances of TransactionViewModel.
-import com.example.quickexpensetracker.R // Resource class for accessing application resources (e.g., strings, layouts, etc.).
-import com.example.quickexpensetracker.databinding.ActivityAddTransactionBinding // Binding class for activity_add_transaction layout, allows direct access to UI components.
+import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
+import com.example.quickexpensestracker.model.Transaction
+import com.example.quickexpensestracker.viewmodels.TransactionViewModel
+import com.example.quickexpensestracker.viewmodels.TransactionViewModelFactory
+import com.example.quickexpensetracker.R
+import com.example.quickexpensetracker.databinding.ActivityAddTransactionBinding
 import com.google.android.material.snackbar.Snackbar
-import java.text.SimpleDateFormat // Class for formatting and parsing dates in a locale-sensitive manner.
-import java.util.* // Package for date and time classes.
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddTransactionActivity : AppCompatActivity() {
 

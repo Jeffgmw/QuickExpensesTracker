@@ -1,10 +1,10 @@
 package com.example.quickexpensestracker.model
 
-import android.icu.text.SimpleDateFormat // Import SimpleDateFormat for date formatting.
-import androidx.room.Entity // Import Entity annotation for Room database.
-import androidx.room.PrimaryKey // Import PrimaryKey annotation for defining primary key.
-import java.text.NumberFormat // Import NumberFormat for currency formatting.
-import java.util.* // Import java.util package for Date class.
+import android.icu.text.SimpleDateFormat
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.text.NumberFormat
+import java.util.*
 
 @Entity(tableName = "transactions") // Define Entity annotation with table name "transactions".
 data class Transaction( // Define Transaction data class for representing transaction entity.

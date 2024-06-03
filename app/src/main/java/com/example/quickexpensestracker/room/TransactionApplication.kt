@@ -1,6 +1,6 @@
 package com.example.quickexpensestracker.room
 
-import android.app.Application // Import the Application class from the Android framework.
+import android.app.Application
 
 class TransactionApplication : Application() { // Class that extends the Android Application class.
     // Lazy initialization of the AppDatabase instance.

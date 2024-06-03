@@ -1,9 +1,9 @@
 package com.example.quickexpensestracker.viewmodels
 
-import android.app.Application // Import Application class from android.app package.
-import androidx.lifecycle.ViewModel // Import ViewModel class from androidx.lifecycle package.
-import androidx.lifecycle.ViewModelProvider // Import ViewModelProvider class from androidx.lifecycle package.
-import androidx.lifecycle.viewmodel.CreationExtras // Import CreationExtras class from androidx.lifecycle.viewmodel package.
+import android.app.Application
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 
 class TransactionViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
     // Override the create method to create instances of ViewModel with additional CreationExtras.

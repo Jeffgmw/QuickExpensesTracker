@@ -8,42 +8,22 @@
     android:layout_height="match_parent"
     tools:context="com.example.quickexpensestracker.ui.MainActivity">
 
-
-    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="App Name"
+        app:title="Quick Expense"
         app:titleTextColor="@color/white"
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/app_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quick Expense"
-                android:layout_marginStart="10dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"/>
-
-        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
-
 
         <LinearLayout
             android:id="@+id/balance_layout"
@@ -53,7 +33,6 @@
             android:layout_marginTop="78dp"
             android:gravity="center"
             android:orientation="vertical">
-
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"

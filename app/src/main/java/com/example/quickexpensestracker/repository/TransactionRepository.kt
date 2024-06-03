@@ -1,8 +1,8 @@
 package com.example.quickexpensestracker.repository
 
-import com.example.quickexpensestracker.room.AppDatabase // Import the AppDatabase class.
-import com.example.quickexpensestracker.model.Transaction // Import the Transaction model class.
-import kotlinx.coroutines.flow.Flow // Import the Flow class from coroutines.
+import com.example.quickexpensestracker.room.AppDatabase
+import com.example.quickexpensestracker.model.Transaction
+import kotlinx.coroutines.flow.Flow
 
 class TransactionRepository(database: AppDatabase) { // Define the TransactionRepository class.
 

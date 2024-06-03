@@ -1,9 +1,9 @@
 package com.example.quickexpensestracker.room
 
-import android.content.Context // Import the Context class from the Android framework.
-import androidx.room.* // Import Room persistence library classes.
-import com.example.quickexpensestracker.utils.DateTypeConverter // Import the custom DateTypeConverter class.
-import com.example.quickexpensestracker.model.Transaction // Import the Transaction model class.
+import android.content.Context
+import androidx.room.*
+import com.example.quickexpensestracker.utils.DateTypeConverter
+import com.example.quickexpensestracker.model.Transaction
 
 // Define the database with entities, version, and type converters.
 @Database(entities = [Transaction::class],

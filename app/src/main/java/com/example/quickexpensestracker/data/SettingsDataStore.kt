@@ -1,16 +1,16 @@
 package com.example.quickexpensestracker.data
 
-import android.content.Context // Import Context class for accessing Android application-specific resources.
-import androidx.datastore.core.DataStore // Import DataStore class for storing and managing data.
-import androidx.datastore.preferences.core.Preferences // Import Preferences class for accessing preferences data.
-import androidx.datastore.preferences.core.booleanPreferencesKey // Import booleanPreferencesKey function for defining boolean preferences keys.
-import androidx.datastore.preferences.core.edit // Import edit extension function for editing preferences.
-import androidx.datastore.preferences.core.emptyPreferences // Import emptyPreferences function for creating an empty preferences instance.
-import androidx.datastore.preferences.preferencesDataStore // Import preferencesDataStore delegate for creating DataStore instances.
-import kotlinx.coroutines.flow.Flow // Import Flow interface for representing a flow of values.
-import kotlinx.coroutines.flow.catch // Import catch operator for handling exceptions in flows.
-import kotlinx.coroutines.flow.map // Import map operator for transforming values in flows.
-import java.io.IOException // Import IOException class for handling I/O exceptions.
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import java.io.IOException
 
 private const val LAYOUT_PREFERENCES_NAME = "layout_preferences" // Define the name of the preferences data store.
 
